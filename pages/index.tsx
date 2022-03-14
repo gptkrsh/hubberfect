@@ -1,12 +1,16 @@
-import Hero from 'components/Home/Hero'
-import type { NextPage } from 'next'
+import { Home } from 'components/Home'
+import { Landing } from 'components/Landing'
+import { NextPage } from 'next'
+import { useSession } from 'next-auth/react'
 
-const Home: NextPage = () => {
-  return (
-    <div>
-      <Hero />
-    </div>
-  )
+const Index: NextPage = () => {
+  const { data: session } = useSession()
+
+  if (session) {
+    return <Home />
+  } else {
+    return <Landing />
+  }
 }
 
-export default Home
+export default Index

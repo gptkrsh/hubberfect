@@ -1,22 +1,19 @@
 import 'styles/globals.scss'
-import type { AppProps } from 'next/app'
+
+import { SessionProvider } from 'next-auth/react'
+import { AppProps } from 'next/app'
+
 import Head from 'next/head'
-import config from 'config'
 
-function MyApp({ Component, pageProps }: AppProps) {
-  const title = config.meta.title(
-    config.name,
-    config.siteName,
-    config.role,
-    config.headline.join(' ')
-  )
-
+function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   return (
     <>
       <Head>
-        <title>{title}</title>
+        <title>Title</title>
       </Head>
-      <Component {...pageProps} />
+      <SessionProvider session={session}>
+        <Component {...pageProps} />
+      </SessionProvider>
     </>
   )
 }
